@@ -13,7 +13,7 @@ import com.prud.pastel.model.UserConversionInfo;
 
 public class ObjectToCSV {
 
-	public void objectToCSV(List<? extends Object> list) throws Exception {
+	public File objectToCSV(List<? extends Object> list) throws Exception {
 		CsvMapper mapper = new CsvMapper();
 
 		CsvSchema schema = mapper.schemaFor(UserConversionInfo.class);
@@ -26,5 +26,8 @@ public class ObjectToCSV {
 		BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(tempFileOutputStream, 1024);
 		OutputStreamWriter writerOutputStream = new OutputStreamWriter(bufferedOutputStream, "UTF-8");
 		myObjectWriter.writeValue(writerOutputStream, list);
+		writerOutputStream.flush();
+		writerOutputStream.close();
+		return tempFile;
 	}
 }

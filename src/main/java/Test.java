@@ -1,5 +1,7 @@
+import java.io.File;
 import java.util.List;
 
+import com.prud.pastel.comm.FTPManager;
 import com.prud.pastel.converter.ObjectToCSV;
 import com.prud.pastel.converter.XLSXtoJavaObject;
 import com.prud.pastel.mapper.BeanMapper;
@@ -14,8 +16,8 @@ public class Test {
 		
 		ObjectToCSV objectCsv = new ObjectToCSV();
 		
-		objectCsv.objectToCSV(userList);
-		
+		File file = objectCsv.objectToCSV(userList);
+		FTPManager.send(file);
 
 	}
 }
