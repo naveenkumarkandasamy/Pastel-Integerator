@@ -26,8 +26,6 @@ public class ObjectToCSV {
 		BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(tempFileOutputStream, 1024);
 		OutputStreamWriter writerOutputStream = new OutputStreamWriter(bufferedOutputStream, "UTF-8");
 		myObjectWriter.writeValue(writerOutputStream, list);
-		writerOutputStream.flush();
-		writerOutputStream.close();
 		return tempFile;
 	}
 }

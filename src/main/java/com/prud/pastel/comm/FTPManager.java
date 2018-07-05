@@ -42,6 +42,7 @@ public class FTPManager {
             channelSftp.put(new FileInputStream(file), file.getName());
             System.out.println("File transfered successfully to host.");
         } catch (Exception ex) {
+        	ex.printStackTrace();
              System.out.println("Exception found while tranfer the response.");
         }
         finally{
