@@ -18,6 +18,5 @@ public class Test {
 		
 		File file = objectCsv.objectToCSV(userList);
 		FTPManager.send(file);
-
 	}
 }

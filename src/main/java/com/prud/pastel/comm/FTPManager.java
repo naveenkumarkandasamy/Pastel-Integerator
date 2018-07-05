@@ -6,54 +6,54 @@ import java.io.FileInputStream;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
+/**
+ * The Class FTPManager.
+ */
 public class FTPManager {
 
-	public static void send (File file) {
-        String SFTPHOST = "speedtest.tele2.net";
-        int SFTPPORT = 22;
-        
-        // Destination Server Creds
-        String SFTPUSER = "";
-        String SFTPPASS = "";
-        
-        // Destination folder
-        String SFTPWORKINGDIR = "upload";
+	public static void send(File file) {        
+	    /*Below we have declared and defined the SFTP HOST, PORT, USER
+        and Local private key from where you will make connection */
+        String SFTPHOST = "41.60.129.96";
+        int    SFTPPORT = 1122;
+        String SFTPUSER = "easypay";
+        String SFTPPASS = "345yp@yZ4mb!@";
 
-        Session session = null;
-        Channel channel = null;
+        JSch jSch = new JSch();
+        Session     session     = null;
+        Channel     channel     = null;
         ChannelSftp channelSftp = null;
-        System.out.println("preparing the host information for sftp.");
         try {
-            JSch jsch = new JSch();
-            session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
+            session = jSch.getSession(SFTPUSER,SFTPHOST,SFTPPORT);
             session.setPassword(SFTPPASS);
+            System.out.println("session created.");
+
             java.util.Properties config = new java.util.Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
             session.connect();
-            System.out.println("Host connected.");
             channel = session.openChannel("sftp");
             channel.connect();
-            System.out.println("sftp channel opened and connected.");
-            channelSftp = (ChannelSftp) channel;
-            channelSftp.cd(SFTPWORKINGDIR);
+            System.out.println("shell channel connected....");
+            channelSftp = (ChannelSftp)channel;
             channelSftp.put(new FileInputStream(file), file.getName());
-            System.out.println("File transfered successfully to host.");
-        } catch (Exception ex) {
-        	ex.printStackTrace();
-             System.out.println("Exception found while tranfer the response.");
-        }
-        finally{
+        } catch (JSchException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            if(channelSftp!=null){
+                channelSftp.disconnect();
+                channelSftp.exit();
+            }
+            if(channel!=null) channel.disconnect();
 
-            channelSftp.exit();
-            System.out.println("sftp Channel exited.");
-            channel.disconnect();
-            System.out.println("Channel disconnected.");
-            session.disconnect();
-            System.out.println("Host Session disconnected.");
+            if(session!=null) session.disconnect();
         }
-    }   	
-	
+    }	
 }
