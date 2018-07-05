@@ -1,55 +1,49 @@
-package com.prud.model;
+package com.prud.pastel.model;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import com.poiji.annotation.ExcelCell;
-import com.poiji.annotation.ExcelCellName;
+@JsonPropertyOrder({ "Date", "Amount", "Module", "Dr/CR", "Account", "GL A/C", "Contra Account", "Transaction Code",
+		"Batch No", "Reference", "Description", "Product Code", "Quantity", "Source","Account Name" })
+public class UserConversionInfo {
 
-public class UserTransactionInfo {
-
-	@Override
-	public String toString() {
-		return "UserTransactionInfo [date=" + date + ", amount=" + amount + ", module=" + module + ", trancactionType="
-				+ trancactionType + ", account=" + account + ", contraCode=" + contraCode + ", transactionCode="
-				+ transactionCode + ", batchNo=" + batchNo + ", reference=" + reference + ", description=" + description
-				+ ", productCode=" + productCode + ", quantity=" + quantity + ", source=" + source + ", accountName="
-				+ accountName + "]";
-	}
-
-	@ExcelCellName("date")
-	private Date date;
-	@ExcelCellName("amount")
+	@JsonProperty("Date")
+	private String date;
+	@JsonProperty("Amount")
 	private double amount;
-	@ExcelCellName("module")
+	@JsonProperty("Module")
 	private String module;
-	@ExcelCellName("trancactionType")
+	@JsonProperty("Dr/CR")
 	private String trancactionType; // credit or debit
-	@ExcelCellName("account")
+	@JsonProperty("Account")
 	private String account;
-	@ExcelCellName("contraCode")
-	private String contraCode;
-	@ExcelCellName("transactionCode")
+	@JsonProperty("GL A/C")
+	private String glAc;
+	@JsonProperty("Contra Account")
+	private String contraAccount;
+	@JsonProperty("Transaction Code")
 	private String transactionCode;
-	@ExcelCellName("batchNo")
+	@JsonProperty("Batch No")
 	private String batchNo;
-	@ExcelCellName("reference")
+	@JsonProperty("Reference")
 	private String reference;
-	@ExcelCellName("description")
+	@JsonProperty("Description")
 	private String description;
-	@ExcelCellName("productCode")
+	@JsonProperty("Product Code")
 	private String productCode;
-	@ExcelCellName("quantity")
+	@JsonProperty("Quantity")
 	private double quantity;
-	@ExcelCellName("source")
+	@JsonProperty("Source")
 	private String source;
-	@ExcelCellName("accountName")
+	@JsonProperty("Account Name")
 	private String accountName;
-
-	public Date getDate() {
+	
+	
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -85,12 +79,20 @@ public class UserTransactionInfo {
 		this.account = account;
 	}
 
-	public String getContraCode() {
-		return contraCode;
+	public String getGlAc() {
+		return glAc;
 	}
 
-	public void setContraCode(String contraCode) {
-		this.contraCode = contraCode;
+	public void setGlAc(String glAc) {
+		this.glAc = glAc;
+	}
+
+	public String getContraAccount() {
+		return contraAccount;
+	}
+
+	public void setContraAccount(String contraAccount) {
+		this.contraAccount = contraAccount;
 	}
 
 	public String getTransactionCode() {
@@ -155,6 +157,15 @@ public class UserTransactionInfo {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	@Override
+	public String toString() {
+		return "UserTransactionInfo [date=" + date + ", amount=" + amount + ", module=" + module + ", trancactionType="
+				+ trancactionType + ", account=" + account + ", glAc=" + glAc + ", contraAccount=" + contraAccount
+				+ ", transactionCode=" + transactionCode + ", batchNo=" + batchNo + ", reference=" + reference
+				+ ", description=" + description + ", productCode=" + productCode + ", quantity=" + quantity
+				+ ", source=" + source + ", accountName=" + accountName + "]";
 	}
 
 }
