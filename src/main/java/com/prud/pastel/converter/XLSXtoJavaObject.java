@@ -10,29 +10,16 @@ import com.prud.pastel.model.UserTransactionInfo;
 
 public class XLSXtoJavaObject {
 
-	public static void main(String[] args) throws Exception {
-		// PoijiOptions options =
-		// PoijiOptionsBuilder.settings().preferNullOverDefault(true) (1)
-		// .build();
-
-		// InputStream stream = new FileInputStream(new
-		// File(XLSXtoJavaObject.class.getClassLoader().getResource("xlsx/test.xls").toURI()));
-		// PoijiOptions options =
-		// PoijiOptionsBuilder.settings().datePattern("yyyymmdd").build();
-		// List<Employee> employees = Poiji.fromExcel(stream, PoijiExcelType.XLS,
-		// Employee.class, options);
-
-	}
-
-	static public List<UserTransactionInfo> xlsxToJavaObject() throws Exception {
+	public static List<UserTransactionInfo> xlsxToJavaObject(File file) throws Exception {
 		PoijiOptions options = PoijiOptionsBuilder.settings().skip(2).build();
-		List<UserTransactionInfo> people = Poiji.fromExcel(
-				new File(XLSXtoJavaObject.class.getClassLoader().getResource("xlsx/test.xls").toURI()),
+		List<UserTransactionInfo> people = Poiji.fromExcel(file,
 				UserTransactionInfo.class);
 		System.out.println(people.size());
-		// 2
-//		UserTransactionInfo person = people.get(1);
-		// System.out.println(people.get(0));
 		return people;
+	}	
+	
+	public static List<UserTransactionInfo> xlsxToJavaObject() throws Exception {
+		return xlsxToJavaObject(
+				new File(XLSXtoJavaObject.class.getClassLoader().getResource("xlsx/test.xls").toURI()));
 	}
 }
