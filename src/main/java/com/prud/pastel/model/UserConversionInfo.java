@@ -10,7 +10,7 @@ public class UserConversionInfo {
 	@JsonProperty("Date")
 	private String date;
 	@JsonProperty("Amount")
-	private double amount;
+	private String amount;
 	@JsonProperty("Module")
 	private String module;
 	@JsonProperty("Dr/CR")
@@ -47,11 +47,11 @@ public class UserConversionInfo {
 		this.date = date;
 	}
 
-	public double getAmount() {
+	public String getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 
