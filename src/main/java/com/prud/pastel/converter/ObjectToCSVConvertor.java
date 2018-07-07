@@ -41,8 +41,10 @@ public class ObjectToCSVConvertor {
 		} catch (FileNotFoundException e) {
 
 			logger.error("Error while creating CSV file" + e);
+			e.printStackTrace();
 		} catch (Exception e) {
 			logger.error("Error while writing into CSV using jackson" + e);
+			e.printStackTrace();
 		}
 		return tempFile;
 	}

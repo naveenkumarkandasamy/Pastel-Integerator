@@ -22,12 +22,13 @@ public class XLSXtoObjectConvertor {
 					UserTransactionInfo.class);
 		} catch (Exception e) {
 			logger.error("error while reading from XLSX file and converting into Object " + e);
+			e.printStackTrace();
 		}
 		return people;
 	}
 	
 	public List<UserTransactionInfo> xlsxToJavaObject() throws Exception {
 		return xlsxToJavaObject(
-				new File(XLSXtoJavaObject.class.getClassLoader().getResource("xlsx/test.xls").toURI()));
+				new File(XLSXtoJavaObject.class.getClassLoader().getResource("xlsx/DDACC.xlsx").toURI()));
 	}	
 }

@@ -44,10 +44,10 @@ public class PastelRestContoller {
 	public void convertToPastel(HttpServletRequest request, HttpServletResponse response) {
 		try {
 
-			List<UserTransactionInfo> people = xLSXtoObjectConvertor.xlsxToJavaObject();
+			List<UserTransactionInfo> userTransactionInfo = xLSXtoObjectConvertor.xlsxToJavaObject();
 
 			BeanMapper mapper = BeanMapper.getInstance();
-			List<UserConversionInfo> userList = mapper.userInfoMapper(people);
+			List<UserConversionInfo> userList = mapper.userInfoMapper(userTransactionInfo);
 
 			File file;
 			file = objectCsv.objectToCSV(userList);
@@ -62,6 +62,7 @@ public class PastelRestContoller {
 	public void convertPASToPastel(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "file") final MultipartFile pasFile) {
 		try {
+			System.out.print("Here");
 			List<UserTransactionInfo> people = xLSXtoObjectConvertor.xlsxToJavaObject(convert(pasFile));
 			BeanMapper mapper = BeanMapper.getInstance();
 			List<UserConversionInfo> userList = mapper.userInfoMapper(people);
@@ -70,7 +71,7 @@ public class PastelRestContoller {
 			file = objectCsv.objectToCSV(userList);
 			doCSVResponse(response, file);
 		} catch (Exception e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			logger.error("Error while converting file from PAS to Pastel  " + e);
 		}
 	}
