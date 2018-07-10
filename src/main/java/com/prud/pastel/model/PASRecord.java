@@ -12,7 +12,6 @@ public class PASRecord {
 	private String accountNumber;
 	@ExcelCellName("Account Name")
 	private String accountName; // credit or debit
-
 	@ExcelCellName("By Order Of/Beneficiary")
 	private String byOrderOf;
 	@ExcelCellName("Statement Date")
@@ -28,7 +27,7 @@ public class PASRecord {
 	@ExcelCellName("Customer Reference")
 	private String customerReference;
 	@ExcelCellName("Value Date")
-	private double valueDate;
+	private String valueDate;
 	@ExcelCellName("Transaction Currency")
 	private String transactionCurrency;
 	@ExcelCellName("Amount")
@@ -134,11 +133,11 @@ public class PASRecord {
 		this.customerReference = customerReference;
 	}
 
-	public double getValueDate() {
+	public String getValueDate() {
 		return valueDate;
 	}
 
-	public void setValueDate(double valueDate) {
+	public void setValueDate(String valueDate) {
 		this.valueDate = valueDate;
 	}
 
@@ -164,6 +163,16 @@ public class PASRecord {
 
 	public void setBatchOrTrack(String batchOrTrack) {
 		this.batchOrTrack = batchOrTrack;
+	}
+
+	@Override
+	public String toString() {
+		return "UserTransactionInfo [branchNumber=" + branchNumber + ", branchName=" + branchName + ", accountNumber="
+				+ accountNumber + ", accountName=" + accountName + ", byOrderOf=" + byOrderOf + ", statementDate="
+				+ statementDate + ", entryDate=" + entryDate + ", transactionDescription=" + transactionDescription
+				+ ", narrative=" + narrative + ", bankReference=" + bankReference + ", customerReference="
+				+ customerReference + ", valueDate=" + valueDate + ", transactionCurrency=" + transactionCurrency
+				+ ", amount=" + amount + ", batchOrTrack=" + batchOrTrack + ", ibanNumber=" + ibanNumber + "]";
 	}
 
 }

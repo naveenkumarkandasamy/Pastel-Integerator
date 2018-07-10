@@ -18,7 +18,6 @@ public class Test {
 		PASToPastelMapper mapper = PASToPastelMapper.getInstance();
 		List<PastelRecord> userList = mapper.createPastelList(people);
 		ObjectToCSVConvertor objectCsv = new ObjectToCSVConvertor();
-
 		File file = objectCsv.convertObjectToCSV(userList);
 		FTPManager.send(file);
 	}
