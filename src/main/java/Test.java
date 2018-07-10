@@ -1,14 +1,12 @@
 import java.io.File;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.prud.pastel.comm.FTPManager;
 import com.prud.pastel.converter.ObjectToCSVConvertor;
 import com.prud.pastel.converter.XLSXtoObjectConvertor;
 import com.prud.pastel.mapper.PASToPastelMapper;
-import com.prud.pastel.model.PastelRecord;
 import com.prud.pastel.model.PASRecord;
+import com.prud.pastel.model.PastelRecord;
 
 public class Test {
 
