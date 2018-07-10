@@ -2,7 +2,7 @@ package com.prud.pastel.model;
 
 import com.poiji.annotation.ExcelCellName;
 
-public class UserTransactionInfo {
+public class PASRecord {
 
 	@ExcelCellName("Branch Number")
 	private String branchNumber;

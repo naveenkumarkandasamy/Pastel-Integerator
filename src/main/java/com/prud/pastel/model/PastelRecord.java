@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({ "Date", "Amount", "Module", "Dr/CR", "Account", "GL A/C", "Contra Account", "Transaction Code",
 		"Batch No", "Reference", "Description", "Product Code", "Quantity", "Source","Account Name" })
-public class UserConversionInfo {
+public class PastelRecord {
 
 	@JsonProperty("Date")
 	private String date;

@@ -8,18 +8,18 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.poiji.bind.Poiji;
-import com.prud.pastel.model.UserTransactionInfo;
+import com.prud.pastel.model.PASRecord;
 
 @Component
 public class XLSXtoObjectConvertor {
 	static final Logger logger = Logger.getLogger(XLSXtoObjectConvertor.class);
-	public List<UserTransactionInfo> xlsxToJavaObject(File file) {
+	public List<PASRecord> xlsxToJavaObject(File file) {
 
-		List<UserTransactionInfo> people = null;
+		List<PASRecord> people = null;
 		try {
 			people = Poiji.fromExcel(
 					file,
-					UserTransactionInfo.class);
+					PASRecord.class);
 		} catch (Exception e) {
 			logger.error("error while reading from XLSX file and converting into Object " + e);
 			e.printStackTrace();
@@ -27,7 +27,7 @@ public class XLSXtoObjectConvertor {
 		return people;
 	}
 	
-	public List<UserTransactionInfo> xlsxToJavaObject() throws Exception {
+	public List<PASRecord> xlsxToJavaObject() throws Exception {
 		return xlsxToJavaObject(
 				new File(XLSXtoJavaObject.class.getClassLoader().getResource("xlsx/DDACC.xlsx").toURI()));
 	}	

@@ -16,35 +16,46 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.prud.pastel.model.UserConversionInfo;
+import com.prud.pastel.model.PastelRecord;
 
 @Component
 public class ObjectToCSVConvertor {
 	private static final Logger logger = Logger.getLogger(ObjectToCSVConvertor.class);
 	private static final char COMMA = ',';
 
-	public File objectToCSV(List<? extends Object> list) {
+	public File convertObjectToCSV(List<? extends Object> list) {
 		CsvMapper mapper = new CsvMapper();
 
-		CsvSchema schema = mapper.schemaFor(UserConversionInfo.class);
+		CsvSchema schema = mapper.schemaFor(PastelRecord.class);
 		schema = schema.withColumnSeparator(COMMA).withHeader();
 
 		// output writer
 		ObjectWriter myObjectWriter = mapper.writer(schema);
 		File tempFile = new File("transaction.csv");
 		FileOutputStream tempFileOutputStream = null;
+		BufferedOutputStream bufferedOutputStream = null;
 		try {
 			tempFileOutputStream = new FileOutputStream(tempFile);
-			BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(tempFileOutputStream, 1024);
+			bufferedOutputStream = new BufferedOutputStream(tempFileOutputStream, 1024);
 			OutputStreamWriter writerOutputStream = new OutputStreamWriter(bufferedOutputStream, "UTF-8");
 			myObjectWriter.writeValue(writerOutputStream, list);
 		} catch (FileNotFoundException e) {
-
+			e.printStackTrace();
 			logger.error("Error while creating CSV file" + e);
-			e.printStackTrace();
+
 		} catch (Exception e) {
-			logger.error("Error while writing into CSV using jackson" + e);
 			e.printStackTrace();
+			logger.error("Error while writing into CSV using jackson" + e);
+		} finally {
+			try {
+				if (tempFileOutputStream != null)
+					tempFileOutputStream.close();
+				if (bufferedOutputStream != null)
+					bufferedOutputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error("Error while writing into CSV using jackson" + e);
+			}
 		}
 		return tempFile;
 	}
