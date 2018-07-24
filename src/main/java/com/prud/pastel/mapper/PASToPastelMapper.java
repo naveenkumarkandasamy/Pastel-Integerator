@@ -2,17 +2,29 @@ package com.prud.pastel.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.prud.pastel.converter.ObjectToCSVConvertor;
 import com.prud.pastel.model.PastelRecord;
 import com.prud.pastel.model.PASRecord;
 
 public class PASToPastelMapper {
+	
+	@Resource(name = "PasToPastelMapping.properties")
+	private Map<String, String> pasToPastelMapper;
+	
+	@Autowired
+	private OrikaModelConverter converter;
+	
 	private static PASToPastelMapper instance = new PASToPastelMapper();
 	static final Logger logger = Logger.getLogger(PASToPastelMapper.class);
 
+	
 	private PASToPastelMapper() {
 
 	}
@@ -24,9 +36,14 @@ public class PASToPastelMapper {
 	public List<PastelRecord> createPastelList(List<PASRecord> pasRecordsList) {
 		List<PastelRecord> pastelRecordsList = null;
 		if (null != pasRecordsList && !pasRecordsList.isEmpty()) {
+			
 			pastelRecordsList = new ArrayList<PastelRecord>();
+			
+			
 			for (PASRecord pasRecord : pasRecordsList) {
 				if (null != pasRecord) {
+					PastelRecord pastelRecord = (PastelRecord)converter.map(pasRecord,PASRecord.class, PastelRecord.class, pasToPastelMapper);	
+					/*
 					PastelRecord pastelRecord = new PastelRecord();
 					pastelRecord.setAccountName(pasRecord.getAccountName());
 					pastelRecord.setAmount(pasRecord.getAmount());
@@ -41,6 +58,7 @@ public class PASToPastelMapper {
 					// userConversionInfo.setSource(userTransactionInfo.getSource());
 					// userConversionInfo.setTrancactionType(userTransactionInfo.getTrancactionType());
 					// userConversionInfo.setTransactionCode(userTransactionInfo.getTransactionCode());
+					*/
 					pastelRecordsList.add(pastelRecord);
 				} else {
 					logger.debug("PAS Record is null");
@@ -51,4 +69,7 @@ public class PASToPastelMapper {
 		}
 		return pastelRecordsList;
 	}
+
+    
+
 }
