@@ -22,6 +22,8 @@ import com.prud.pastel.model.PastelRecord;
 
 @Component
 public class PastelConverterService {
+	@Autowired
+	PASToPastelMapper mapper;
 	
 	@Autowired
 	XLSXtoObjectConvertor xlsxToObjectConvertor;	
@@ -42,7 +44,6 @@ public class PastelConverterService {
 	}	
 
 	private void convertToPastel(HttpServletResponse response, List<PASRecord> pasRecordsList) {
-		PASToPastelMapper mapper = PASToPastelMapper.getInstance();
 		List<PastelRecord> userList = mapper.createPastelList(pasRecordsList);
 		File file;
 		file = objectToCSVConvertor.convertObjectToCSV(userList);
