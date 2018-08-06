@@ -1,7 +1,6 @@
 package com.prud.pastel.mapper;
 
 import java.util.Map;
-import com.prud.pastel.mapper.ModelConverter;
 import org.springframework.stereotype.Component;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
@@ -13,8 +12,15 @@ import ma.glasnost.orika.metadata.ClassMapBuilder;
  * 
  */
 @Component("orikaConverter")
-public class OrikaModelConverter implements ModelConverter {
+public class OrikaModelConverter{
+	
 
+	private static OrikaModelConverter instance = new OrikaModelConverter();
+
+	public static OrikaModelConverter getInstance() {
+		return instance;
+	}	
+	
 	private MapperFacade mapper;
 	MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 

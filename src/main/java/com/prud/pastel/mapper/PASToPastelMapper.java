@@ -1,8 +1,12 @@
 package com.prud.pastel.mapper;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
@@ -16,15 +20,31 @@ import com.prud.pastel.model.PASRecord;
 @Component
 public class PASToPastelMapper {
 
-	@Autowired
-	private ModelConverter converter;
+	private static Map<String, String> pasToPastelMapping = new HashMap<String, String>();	
 
-	@Resource(name = "pasToPastelMapping")
-	private Map<String, String> pasToPastelMapping;
+	private static PASToPastelMapper instance = new PASToPastelMapper();	
 
-	@Autowired
-	PASToPastelMapper instance;
+	static Properties prop = new Properties();
+	static InputStream input = null;	
 
+	public static PASToPastelMapper getInstance() {
+		return instance;
+	}
+
+	static{
+		String filename = "PasToPastelMapping.properties";
+		input = PASToPastelMapper.class.getClassLoader().getResourceAsStream(filename);
+		try {
+			prop.load(input);
+			input.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for (String key : prop.stringPropertyNames()) {
+		    String value = prop.getProperty(key);
+		    pasToPastelMapping.put(key, value);
+		}
+	}
 
 	static final Logger logger = Logger.getLogger(PASToPastelMapper.class);
 
@@ -33,6 +53,8 @@ public class PASToPastelMapper {
 		if (null != pasRecordsList && !pasRecordsList.isEmpty()) {
 
 			pastelRecordsList = new ArrayList<PastelRecord>();
+			
+			OrikaModelConverter converter = OrikaModelConverter.getInstance();
 
 			for (PASRecord pasRecord : pasRecordsList) {
 				if (null != pasRecord) {

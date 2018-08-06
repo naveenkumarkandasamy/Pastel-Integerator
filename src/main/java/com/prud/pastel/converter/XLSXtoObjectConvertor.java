@@ -28,6 +28,6 @@ public class XLSXtoObjectConvertor {
 
 	public List<PASRecord> xlsxToJavaObject() throws Exception {
 		return xlsxToJavaObject(
-				new File(XLSXtoObjectConvertor.class.getClassLoader().getResource("xlsx/DDACC.xlsx").toURI()));
+				new File(XLSXtoObjectConvertor.class.getClassLoader().getResource("xlsx/Uganda/IL.xlsx").toURI()));
 	}
 }

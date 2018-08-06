@@ -35,14 +35,15 @@ public class PastelRestContoller {
 	@RequestMapping(value = "/pas/pastel", method = RequestMethod.POST)
 	@ResponseBody
 	public void convertPASToPastel(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "file") final MultipartFile pasFile) {
+			@RequestParam(value = "file") final MultipartFile pasFile,
+			@RequestParam(value = "fileFormat") final String fileFormat,
+			@RequestParam(value = "accountingEngine") final String accountingEngine) {
 		try {
-			pastelConverterService.convertToPastel(response, pasFile);
+			pastelConverterService.convertToPastel(response, pasFile, fileFormat, accountingEngine);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Error while converting file from PAS to Pastel  " + e);
 		}
 	}
-
 
 }

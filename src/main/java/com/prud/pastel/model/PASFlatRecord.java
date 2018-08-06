@@ -2,7 +2,7 @@ package com.prud.pastel.model;
 
 import com.poiji.annotation.ExcelCellName;
 
-public class PASRecord {									
+public class PASFlatRecord {									
 
 	@ExcelCellName("Date")
 	private String date;
