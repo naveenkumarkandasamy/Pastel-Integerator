@@ -4,10 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Properties;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.poiji.annotation.ExcelCellName;
-
 public class Receipts {
 
 
