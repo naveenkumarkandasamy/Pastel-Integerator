@@ -8,7 +8,7 @@ public class Debits {
 	public String beneficiary;
 	public String policyNo;
 	public String amount;
-	public String currency;
+	public static final String currency = "UGX";
 	public String expenseAccount;
 	public String getDate() {
 		return date;
@@ -54,9 +54,6 @@ public class Debits {
 	}
 	public String getCurrency() {
 		return currency;
-	}
-	public void setCurrency(String currency) {
-		this.currency = currency;
 	}
 	public String getExpenseAccount() {
 		return expenseAccount;
