@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.poiji.annotation.ExcelCellName;
 
-public class PastelRecord {
+public class Receipts {
 
 
 	public String date;
@@ -17,13 +17,21 @@ public class PastelRecord {
 	public String debitNumber;
 	public String clientName;
 	public String amount;
-	public String currency;
+	public static final String currency = "UGX";
 	public String policyNo;
 	public String bankRefNo;
 	public String originalType;
 	public String incomeAccount;
 	public String bankCode;
-	
+	public static final String codePayment = "CA";
+	public static final String batchNumber = "1";
+	public String entryNumbers;
+	public static final String rmitType = "5";
+	public static final String docType = "1";
+	public static final String idinvcmtch = "***New***";
+	public static final String paymentType = "2";
+	public static final Integer lineNo = 20;
+
 	public String getDate() {
 		return date;
 	}
@@ -63,9 +71,6 @@ public class PastelRecord {
 	public String getCurrency() {
 		return currency;
 	}
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
 	public String getPolicyNo() {
 		return policyNo;
 	}
@@ -97,7 +102,34 @@ public class PastelRecord {
 		this.bankCode = bankCode;
 	}
 
-	public PastelRecord(Map<String, String> recordMap, Properties flatToPastelMapper) {
+	public String getCodePayment() {
+		return codePayment;
+	}
+	public String getBatchNumber() {
+		return batchNumber;
+	}
+	public String getEntryNumbers() {
+		return entryNumbers;
+	}
+	public void setEntryNumbers(String entryNumbers) {
+		this.entryNumbers = entryNumbers;
+	}
+	public String getRmitType() {
+		return rmitType;
+	}
+	public String getDocType() {
+		return docType;
+	}
+	public String getIdinvcmtch() {
+		return idinvcmtch;
+	}
+	public String getPaymentType() {
+		return paymentType;
+	}
+	public Integer getLineNo() {
+		return lineNo;
+	}
+	public Receipts(Map<String, String> recordMap, Properties flatToPastelMapper) {
 		Field [] fields = this.getClass().getFields();
 		for(Field field : fields){
 			try {

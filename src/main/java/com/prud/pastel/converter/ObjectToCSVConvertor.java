@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.prud.pastel.model.PastelRecord;
+import com.prud.pastel.model.Receipts;
 
 @Component
 public class ObjectToCSVConvertor {
@@ -26,7 +26,7 @@ public class ObjectToCSVConvertor {
 	public File convertObjectToCSV(List<? extends Object> list) {
 		CsvMapper mapper = new CsvMapper();
 
-		CsvSchema schema = mapper.schemaFor(PastelRecord.class);
+		CsvSchema schema = mapper.schemaFor(Receipts.class);
 		schema = schema.withColumnSeparator(COMMA).withHeader();
 
 		// output writer

@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.prud.pastel.model.PastelRecord;
+import com.prud.pastel.model.Receipts;
 
 @Component
 public class FlatFileToObjectConvertor {
@@ -46,21 +46,23 @@ public class FlatFileToObjectConvertor {
 		}
 	}
 	
-	public List<PastelRecord> convertToPastelRecord(File file) {
+	public List<Receipts> convertToPastelRecord(File file) {
 
-		List<PastelRecord> records = new ArrayList<PastelRecord>();
+		List<Receipts> records = new ArrayList<Receipts>();
 		try {
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line;
+			int recordsCount = 0;
 			while ((line = bufferedReader.readLine()) != null) {
 				Map<String, String> recordMap = getRecordFromFlatFile(bufferedReader, line);
-				PastelRecord pastelRecord = new PastelRecord(recordMap, flatFileToPastelMapper);
+				Receipts pastelRecord = new Receipts(recordMap, flatFileToPastelMapper);
+				pastelRecord.setEntryNumbers(String.valueOf(recordsCount));
 				records.add(pastelRecord);
 			}
 			fileReader.close();
 		} catch (Exception e) {
-			logger.error("error while reading from XLSX file and converting into Object " + e);
+			logger.error("error while reading from flat file and converting into Object " + e);
 			e.printStackTrace();
 		}
 		return records;
@@ -94,13 +96,13 @@ public class FlatFileToObjectConvertor {
 		return recordMap;
 	}
 
-	public List<PastelRecord> convertToPastelRecord() throws Exception {
+	public List<Receipts> convertToPastelRecord() throws Exception {
 		return convertToPastelRecord(new File(
 				XLSXtoObjectConvertor.class.getClassLoader().getResource("flatfile/Uganda/BACSDC0006.txt").toURI()));
 	}
 
 	public static void main(String[] args) throws Exception {
-		List<PastelRecord> records = new FlatFileToObjectConvertor().convertToPastelRecord();
+		List<Receipts> records = new FlatFileToObjectConvertor().convertToPastelRecord();
 		System.out.println(records);
 	}
 	

@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.prud.pastel.model.PastelRecord;
+import com.prud.pastel.model.Receipts;
 import com.prud.pastel.model.PASRecord;
 
 @Component
@@ -48,17 +48,17 @@ public class PASToPastelMapper {
 
 	static final Logger logger = Logger.getLogger(PASToPastelMapper.class);
 
-	public List<PastelRecord> createPastelList(List<PASRecord> pasRecordsList) {
-		List<PastelRecord> pastelRecordsList = null;
+	public List<Receipts> createPastelList(List<PASRecord> pasRecordsList) {
+		List<Receipts> pastelRecordsList = null;
 		if (null != pasRecordsList && !pasRecordsList.isEmpty()) {
 
-			pastelRecordsList = new ArrayList<PastelRecord>();
+			pastelRecordsList = new ArrayList<Receipts>();
 			
 			OrikaModelConverter converter = OrikaModelConverter.getInstance();
 
 			for (PASRecord pasRecord : pasRecordsList) {
 				if (null != pasRecord) {
-					PastelRecord pastelRecord = (PastelRecord)converter.map(pasRecord,PASRecord.class, PastelRecord.class, pasToPastelMapping);	
+					Receipts pastelRecord = (Receipts)converter.map(pasRecord,PASRecord.class, Receipts.class, pasToPastelMapping);	
 					pastelRecordsList.add(pastelRecord);
 				} else {
 					logger.debug("PAS Record is null");

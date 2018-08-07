@@ -17,10 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.prud.pastel.converter.FlatFileToObjectConvertor;
 import com.prud.pastel.converter.ObjectToCSVConvertor;
+import com.prud.pastel.converter.ObjectToExcelConvertor;
 import com.prud.pastel.converter.XLSXtoObjectConvertor;
 import com.prud.pastel.mapper.PASToPastelMapper;
 import com.prud.pastel.model.PASRecord;
-import com.prud.pastel.model.PastelRecord;
+import com.prud.pastel.model.Receipts;
 
 @Component
 public class PastelConverterService {
@@ -58,16 +59,42 @@ public class PastelConverterService {
 			doCSVResponse(response, file);
 		}
 		else if(StringUtils.equals(fileFormat, "flatfile" )){
-			List<PastelRecord> pasRecordsList = flatFileToObjectConvertor.convertToPastelRecord(convert(pasFile));
-			File file = convertToPastelFile(response, pasRecordsList);
+			List<Receipts> pasRecordsList = flatFileToObjectConvertor.convertToPastelRecord(convert(pasFile));
+			ObjectToExcelConvertor objectToExcel = new ObjectToExcelConvertor();
+			File file = objectToExcel.convertObjectToExcel(pasRecordsList);
+			//File file = convertToPastelFile(response, pasRecordsList);
 			doCSVResponse(response, file);
 		}
 	}
 
-	private File convertToPastelFile(HttpServletResponse response, List<PastelRecord> pasRecordsList) {
+	private File convertToPastelFile(HttpServletResponse response, List<Receipts> pasRecordsList) {
 		return objectToCSVConvertor.convertObjectToCSV(pasRecordsList);
 	}
 
+	private void doXLSResponse(HttpServletResponse response, File file) {
+		byte[] contents = fileToByte(file);
+		String responseFile = "response.xls";
+		response.setContentType("application/vnd.ms-excel");
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", responseFile);
+		response.setHeader(headerKey, headerValue);
+		OutputStream os;
+		try {
+			os = response.getOutputStream();
+			os.write(contents);
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+
+		response.setContentLength(contents.length);
+		response.setHeader("Content-Disposition", "attachment;filename= " + responseFile);
+
+		if (!file.delete()) {
+			logger.error("Unable to delete file");
+		}
+	}	
+	
 	private void doCSVResponse(HttpServletResponse response, File file) {
 		byte[] contents = fileToByte(file);
 		String responseFile = "response.csv";
