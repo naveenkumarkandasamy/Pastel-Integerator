@@ -57,6 +57,7 @@ public class FlatFileToObjectConvertor {
 			while ((line = bufferedReader.readLine()) != null) {
 				Map<String, String> recordMap = getRecordFromFlatFile(bufferedReader, line);
 				Receipts pastelRecord = new Receipts(recordMap, flatFileToPastelMapper);
+				recordsCount++;
 				pastelRecord.setEntryNumbers(String.valueOf(recordsCount));
 				records.add(pastelRecord);
 			}
